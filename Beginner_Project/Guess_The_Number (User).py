@@ -7,19 +7,29 @@
 import random
 
 print(" Welcome to Guess the Number Game.")
-print(" The computer will set the number and your task is to guess the number")
-print(" LETSS GOO !!!\n")
-
-def guess(x, y):
-    random_num = random.randint(x, y)
-    guess = 0
-    while guess != random_num:
-        guess = int(input("Guess the number: "))
-        if guess > random_num:
-            print("Sorry your number is too high!")
-        elif guess < random_num:
-            print("Sorry your number is too low!")
-    print(f"Congratulations, you have guess number {random_num} Correctly!!! ")
+print(" This is one is  a bit different\n You will have a secret number and the computer will guess it")
+print(" ARE YOU READY???\n LETSS GOO !!!\n")
 
 
-guess(small_num,large_num)
+def computer_guess(x):
+    low = 1
+    high = x
+    feedback = ''
+    guess_num = 0
+
+    while feedback != 'c':
+        if low != high:
+            guess = random.randint(low, high)
+        else:
+            guess = low # it could be high since low = high
+
+        guess_num += 1
+        feedback = input(f"Is {guess} too high (H), too low (L), or correct (C)?").lower()
+        if feedback == 'h':
+            high = guess - 1
+        elif feedback == 'l':
+            low = guess + 1
+
+    print(f"Yay, You computer have guess the number {guess} with {guess_num} guese(s)!!!")
+
+computer_guess(50)
