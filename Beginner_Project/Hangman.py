@@ -14,11 +14,14 @@ def hangman():
     word_letters = set(word) # Create Set for the random words
     alphabet = set(string.ascii_uppercase) # Set of alphabet
     used_letters = set() # Containing the already used letters
-
-    while len(word_letters) > 0: # making sure that there is a letter in the words_letters set
+    
+    lives = 7 # Set how much maximum guess is allowed
+    
+    while len(word_letters) > 0 and lives > 0: # making sure that there is a letter in the words_letters set
         # User needs to know what letters have been used
         # " ", join["a", "b", "cd"] --> "a b cd"
         print("You have used these letters: ", " ".join(used_letters))
+        print("You have", lives, "lives left!")
 
         # Tell the user what are the current characters
         word_lists = [letter if letter in used_letters else "_" for letter in word]
@@ -31,14 +34,18 @@ def hangman():
             used_letters.add(user_letters)
             if user_letters in word_letters:
                 word_letters.remove(user_letters)
+            
+            else:
+                lives = lives - 1 # take away lifes
 
         elif user_letters in used_letters:
             print("You have already used the character, please try again!")
 
         else:
             print("Invalid Character, please try again")
-
-    print(f"Congratulations, You have guessed the word, {word} !!")
+    if lives == 0:
+        print("Sorry, You died. The correct word is", word, "!!")
+    else:
+        print(f"Congratulations, You have guessed the word, {word} !!")
 
 hangman()
-
